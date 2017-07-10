@@ -9,7 +9,7 @@ import signal
 from os.path import dirname, exists, split
 
 from tests.plugins.utils import trace, info, fail, ok, red, warn, white
-from tests.plugins.phantomjs_screenshot import get_phantomjs_screenshot
+from tests.plugins.screenshot import get_screenshot
 from tests.plugins.image_diff import image_diff
 
 from bokeh.client import push_session
@@ -130,7 +130,7 @@ def _get_path_parts(path):
     return parts
 
 
-def _print_phantomjs_output(result):
+def _print_webengine_output(result):
     errors = result['errors']
     messages = result['messages']
     resources = result['resources']
@@ -168,7 +168,7 @@ def _assert_snapshot(example, url, example_type):
     global_wait = 30000
 
     start = time.time()
-    result = get_phantomjs_screenshot(url, screenshot_path, local_wait, global_wait, width, height)
+    result = get_screenshot(url, screenshot_path, local_wait, global_wait, width, height)
     end = time.time()
 
     info("Example rendered in %s" % white("%.3fs" % (end - start)))
@@ -185,7 +185,7 @@ def _assert_snapshot(example, url, example_type):
         warn("%s %s" % (red("TIMEOUT:"), "bokehjs did not finish in %s ms" % global_wait))
 
     if pytest.config.option.verbose:
-        _print_phantomjs_output(result)
+        _print_webengine_output(result)
 
     assert success, "%s failed to load" % example.relpath
     assert no_resources, "%s failed with %d missing resources" % (example.relpath, len(resources))
