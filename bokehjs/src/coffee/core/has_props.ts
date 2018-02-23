@@ -1,4 +1,4 @@
-//import {logger} from "./logging"
+import {logger} from "./logging"
 import {View} from "./view"
 import {Class} from "./class"
 import {Signal, Signalable} from "./signaling"
