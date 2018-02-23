@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e # exit on error
+set -x # echo commands
+
+# build BokehJS
+pushd bokehjs
+node_modules/.bin/gulp scripts:compile --emit-error # TODO: test:compile examples:compile
+popd

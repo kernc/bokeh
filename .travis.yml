@@ -43,7 +43,12 @@ jobs:
 
     - stage: test
 
-      install: scripts/ci/install:test
+      install: scripts/ci/install:build
+      script: scripts/ci/test
+      env:
+      - GROUP=ts
+
+    - install: scripts/ci/install:test
       script: scripts/ci/test
       env:
       - GROUP=examples
